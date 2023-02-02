@@ -1,0 +1,3 @@
+[submodule "source/hic_hal/air32/air32f103xb"]
+	path = source/hic_hal/air32/air32f103xb
+	url = https://github.com/ShaojieHe/air32f103xb.git
