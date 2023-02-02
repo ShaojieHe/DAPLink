@@ -39,6 +39,11 @@
 #include "target_board.h"
 #include "flash_manager.h"
 
+#if DAPLINK_HIC_ID == 0x98969908
+    //AIR32 Custom Port
+    #include "air32f10x_rcc.h"
+#endif
+
 //! @brief Size in bytes of the virtual disk.
 //!
 //! Must be bigger than 4x the flash size of the biggest supported
@@ -521,6 +526,11 @@ static uint32_t update_details_txt_file(uint8_t *buf, uint32_t size, uint32_t st
 {
     uint32_t pos = 0;
 
+#if DAPLINK_HIC_ID == 0x98969908
+    //AIR32 Custom Port
+	RCC_ClocksTypeDef clocks;
+#endif
+
     pos += util_write_string_in_region(buf, size, start, pos,
         "# DAPLink Firmware - see https://daplink.io\r\n"
         // Build ID
@@ -602,6 +612,20 @@ static uint32_t update_details_txt_file(uint8_t *buf, uint32_t size, uint32_t st
     //Target URL
     pos += expand_string_in_region(buf, size, start, pos, "URL: @R\r\n");
 
+#if DAPLINK_HIC_ID == 0x98969908
+    //AIR32 Custom Port
+	pos += util_write_string_in_region(buf, size, start, pos, "\r\n");
+	
+	pos += util_write_string_in_region(buf, size, start, pos, "AIR32 DAPLink Minimal Viable Port\r\n");
+	pos += util_write_string_in_region(buf, size, start, pos, "Using AIR32F103CBT6\r\n");
+	pos += util_write_string_in_region(buf, size, start, pos, "LuatOS URL: air32.cn\r\n\r\n");
+	
+	RCC_GetClocksFreq(&clocks);
+	pos += uint32_field_in_region(buf, size, start, pos, "SYSCLK Freqs @ MHz", clocks.SYSCLK_Frequency / 1000000);
+	pos += uint32_field_in_region(buf, size, start, pos, "HCLK Freqs @ MHz", clocks.HCLK_Frequency / 1000000);
+	pos += uint32_field_in_region(buf, size, start, pos, "PCLK1 Freqs @ MHz", clocks.PCLK1_Frequency / 1000000);
+	pos += uint32_field_in_region(buf, size, start, pos, "PCLK2 Freqs @ MHz", clocks.PCLK2_Frequency / 1000000);
+#endif
     return pos;
 }
 
