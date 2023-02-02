@@ -110,6 +110,7 @@ PROJECT_RELEASE_INFO = [
     ('nrf52820_if',                                 False,      0x0000,     "bin"       ),
     ('sam3u2c_if',                                  False,      0x0000,     "bin"       ),
     ('stm32f103xb_if',                              False,      0x0000,     "bin"       ),
+    ('air32f103xb_if',                              False,      0x0000,     "bin"       ),
     ('lpc11u35_pitaya_link_if',                     False,      0x0000,     "bin"       ),
 ]
 
@@ -247,6 +248,7 @@ SUPPORTED_CONFIGURATIONS = [
     (   0x0000,     VENDOR_TO_FAMILY('Stub', 1),        'nrf52820_if',                              None,               None                                    ),
     (   0x0000,     VENDOR_TO_FAMILY('Stub', 1),        'sam3u2c_if',                               None,               None                                    ),
     (   0x0000,     VENDOR_TO_FAMILY('Stub', 1),        'stm32f103xb_if',                           None,               None                                    ),
+    (   0x0000,     VENDOR_TO_FAMILY('Stub', 1),        'air32f103xb_if',                           None,               None                                    ),
 
     # Test projects
     (   0x1102,     VENDOR_TO_FAMILY('Nordic', 2),      'lpc55s69_nrf52840dk_test_if',              'lpc55s69_bl',      'Nordic-nRF52840-DK'                    ),
@@ -267,6 +269,7 @@ HIC_STRING_TO_ID = {
     'nrf52820': 0x6E052820,
     'sam3u2c': 0x97969903,
     'stm32f103xb': 0x97969908,
+    'air32f103xb': 0x98969908,
 }
 
 BOARD_ID_LOCKED_WHEN_ERASED = set([

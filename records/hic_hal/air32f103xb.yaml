@@ -1,0 +1,45 @@
+common:
+    target:
+        - Cortex-M3
+    core:
+        - Cortex-M3
+    macros:
+        - INTERFACE_AIR32F103XB
+        - AIR32F103XB
+        - DAPLINK_HIC_ID=0x98969908  # DAPLINK_HIC_ID_AIR32F103XB
+        - __packed=__packed          # Prevent redefinition of __packed with ARMCC
+        - DAPLINK_NO_ASSERT_FILENAMES
+        - OS_CLOCK=216000000
+    includes:
+        - source/hic_hal/air32/air32f103xb_DAPLink
+        - source/hic_hal/air32/air32f103xb/Libraries/AIR32F10xLib/inc
+    sources:
+        hic_hal:
+            - source/hic_hal/air32/air32f103xb_DAPLink
+            - source/hic_hal/air32/air32f103xb/Libraries/AIR32F10xLib/src
+
+tool_specific:
+    uvision:
+        misc:
+            ld_flags:
+                - --predefine="-I..\..\..\source\hic_hal\air32\air32f103xb_DAPLink"
+        sources:
+            hic_hal:
+                - source/hic_hal/air32/air32f103xb_DAPLink/armcc
+    armcc:
+        misc:
+            asm_flags:
+                - --no_unaligned_access
+            c_flags:
+                - --no_unaligned_access
+        sources:
+            hic_hal:
+                - source/hic_hal/air32/air32f103xb_DAPLink/armcc
+    armclang:
+        sources:
+            hic_hal:
+                - source/hic_hal/air32/air32f103xb_DAPLink/armcc
+    gcc_arm:
+        sources:
+            hic_hal:
+                - source/hic_hal/air32/air32f103xb_DAPLink/gcc
