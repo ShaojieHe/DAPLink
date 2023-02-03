@@ -13,10 +13,12 @@ common:
     includes:
         - source/hic_hal/air32/air32f103xb_DAPLink
         - source/hic_hal/air32/air32f103xb/Libraries/AIR32F10xLib/inc
+        - source/hic_hal/air32/air32f103xb_DAPLink/AIR32F10x_ARM_DRIVER
     sources:
         hic_hal:
             - source/hic_hal/air32/air32f103xb_DAPLink
             - source/hic_hal/air32/air32f103xb/Libraries/AIR32F10xLib/src
+            - source/hic_hal/air32/air32f103xb_DAPLink/AIR32F10x_ARM_DRIVER
 
 tool_specific:
     uvision:
