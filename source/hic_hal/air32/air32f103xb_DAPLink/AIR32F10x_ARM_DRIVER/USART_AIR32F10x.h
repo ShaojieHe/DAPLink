@@ -385,8 +385,16 @@
 #define __USART_DMA
 #endif
 
+
+/*
+	THIS OLD MACRO WILL FAIL UNDER TOO LARGE APB2 CLOCK SPEED!!!!
+	due to uint32 is 0 to 4,294,967,295
+	when APB2 clock speed is 216MHz, first ((_PCLK_)*25)=5,400,000,000 will FAIL directly!
+		#define USART_DIVIDER(_PCLK_, _BAUD_)           (((_PCLK_)*25)/(4*(_BAUD_)))
+*/
+
 // USART BRR macro
-#define USART_DIVIDER(_PCLK_, _BAUD_)           (((_PCLK_)*25)/(4*(_BAUD_)))
+#define USART_DIVIDER(_PCLK_, _BAUD_)           ((((uint64_t)(_PCLK_))*25)/(4*(_BAUD_)))
 #define USART_DIVIDER_MANTISA(_PCLK_, _BAUD_)     (USART_DIVIDER((_PCLK_), (_BAUD_))/100)
 #define USART_DIVIDER_FRACTION(_PCLK_, _BAUD_)  (((USART_DIVIDER((_PCLK_), (_BAUD_)) - (USART_DIVIDER_MANTISA((_PCLK_), (_BAUD_)) * 100)) * 16 + 50) / 100)
 #define USART_BAUDRATE_DIVIDER(_PCLK_, _BAUD_)   ((USART_DIVIDER_MANTISA((_PCLK_), (_BAUD_)) << 4)|(USART_DIVIDER_FRACTION((_PCLK_), (_BAUD_)) & 0x0F))
